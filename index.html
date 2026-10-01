@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BIOLOGY PROJECT</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #000;
+            font-family: "Segoe UI", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin: 10px 0 0 10px;
+            padding: 10px 14px;
+            background: #77825c;
+            border: 1px solid #4b531e;
+            border-right: none;
+            border-radius: 14px 0 0 0;
+        }
+        .topbar h1 {
+            margin: 0;
+            font-size: 52px;
+            font-weight: 400;
+            color: #888;
+        }
+
+        .layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 90px 1fr 500px;
+        }
+
+        .main {
+            background: #4d5d53;
+            padding: 16px 20px;
+            color: #f8fff7;
+        }
+        .main h2 {
+            margin: 0;
+            font-size: 60px;
+            font-weight: 400;
+        }
+        .main p {
+            max-width: 540px;
+            margin: 0 0 0 55px;
+            font-size: 22px;
+            line-height: 1.35;
+        }
+
+        .sidebar {
+            background: #738276;
+            border-left: 2px solid #282f27;
+            padding: 30px 16px;
+            color: #f8fff7;
+        }
+        .sidebar h3 {
+            margin: 0 0 12px 46px;
+            font-size: 32px;
+            font-weight: 400;
+        }
+        .sidebar p {
+            margin: 0;
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            .image { margin-left: 0; height: 220px; font-size: 50px; }
+            .main p { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <h1>The Hawaiian Monk Seal/known to locals as "Īlio-holo-i-ka-uaua"</h1>
+    </div>
+
+    <div class="layout">
+        <div></div>
+
+        <main class="main">
+            <h2>About</h2>
+            <p>website!</p>
+        </main>
+
+        <aside class="sidebar">
+            <h3>TEXT</h3>
+            <p>aaaaaaaa </p>
+        </aside>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/catxproductions/accntsystmhidden@main/auth.js"></script>
+    <script>
+      if (!accountSystem.isAuthenticated()) {
+        window.location.href = "https://catxproductions.github.io/accntsystmhidden/login.html";
+      }
+    </script>
+    <div id="authBox" style="position:fixed;top:20px;right:20px;z-index:9999;padding:10px 14px;border-radius:12px;background:#111827;color:white;border:1px solid #334155;">
+  <div id="authStatus">Not signed in</div>
+  <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+    <button id="showLogin" type="button">Sign in</button>
+    <button id="logoutBtn" type="button" style="display:none;">Log out</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/catxproductions/accntsystmhidden@main/auth.js"></script>
+<script>
+  const authStatus = document.getElementById('authStatus');
+  const showLoginBtn = document.getElementById('showLogin');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  function updateAuthUI() {
+    const user = accountSystem.getCurrentUser();
+    if (user) {
+      authStatus.textContent = 'Signed in as ' + user.username;
+      logoutBtn.style.display = 'inline-block';
+    } else {
+      authStatus.textContent = 'Not signed in';
+      logoutBtn.style.display = 'none';
+    }
+  }
+
+  showLoginBtn.addEventListener('click', () => {
+    const username = prompt('Username:');
+    const password = prompt('Password:');
+    if (!username || !password) return;
+
+    const result = accountSystem.login(username, password);
+
+    if (result.success) {
+      updateAuthUI();
+      alert('Signed in successfully.');
+    } else {
+      alert(result.error);
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    accountSystem.logout();
+    updateAuthUI();
+    alert('Signed out.');
+  });
+
+  updateAuthUI();
+</script>
+</body>
+</html>
