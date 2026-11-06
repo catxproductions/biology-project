@@ -1,105 +1,1291 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The Hawaiian Monk Seal</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: #000;
-            font-family: "Segoe UI", Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#233c32">
+  <meta name="description" content="A field guide to the Hawaiian monk seal: its biology, habitat, adaptations, food web, threats, and a proposed Maui conservation sanctuary.">
+  <title>The Hawaiian Monk Seal | Field Notes</title>
+  <link rel="preconnect" href="https://www.fisheries.noaa.gov">
+  <link rel="preconnect" href="https://www.fisheries.noaa.gov" crossorigin>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #21352d;
+      --muted: #64756b;
+      --forest: #263f34;
+      --forest-deep: #1c3028;
+      --sage: #dce4d8;
+      --sage-dark: #a8b79f;
+      --moss: #778565;
+      --sand: #f4f1e8;
+      --paper: #fbfaf6;
+      --line: #d8ded3;
+      --white: #fffefa;
+      --gold: #d1ad6f;
+      --shadow: 0 18px 48px rgba(35, 54, 44, .10);
+      --radius: 22px;
+      --content: 1160px;
+    }
 
-        .topbar {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin: 10px 0 0 10px;
-            padding: 10px 14px;
-            background: #77825c;
-            border: 1px solid #4b531e;
-            border-right: none;
-            border-radius: 14px 0 0 0;
-        }
-        .topbar h1 {
-            margin: 0;
-            font-size: 45px;
-            font-weight: 400;
-            color: #888;
-        }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      background: var(--sand);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 5px;
+    }
+    .skip-link {
+      position: absolute;
+      left: 14px;
+      top: -60px;
+      z-index: 100;
+      padding: 10px 14px;
+      background: var(--white);
+      color: var(--ink);
+      border-radius: 8px;
+    }
+    .skip-link:focus { top: 12px; }
 
-        .layout {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 90px 1fr 500px;
-        }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(251, 250, 246, .94);
+      border-bottom: 1px solid rgba(216, 222, 211, .9);
+      backdrop-filter: blur(14px);
+    }
+    .header-inner {
+      width: min(var(--content), calc(100% - 44px));
+      min-height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      color: var(--forest);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .18em;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--forest);
+      color: #f7f4e9;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+    .primary-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2.2vw, 28px);
+    }
+    .primary-nav a {
+      text-decoration: none;
+      color: #58685e;
+      font-size: .78rem;
+      font-weight: 700;
+      transition: color .2s ease;
+    }
+    .primary-nav a:hover { color: #1e352a; }
+    .nav-cta {
+      padding: 10px 15px;
+      border: 1px solid #aebaa8;
+      border-radius: 999px;
+      color: var(--forest) !important;
+    }
 
-        .main {
-            background: #4d5d53;
-            padding: 16px 20px;
-            color: #f8fff7;
-        }
-        .main h2 {
-            margin: 0;
-            font-size: 50px;
-            font-weight: 400;
-        }
-        .main p {
-            max-width: 540px;
-            margin: 0 0 0 55px;
-            font-size: 22px;
-            line-height: 1.35;
-        }
+    .hero {
+      min-height: min(690px, calc(100svh - 72px));
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      isolation: isolate;
+      background: #243d37;
+      color: #fffdf7;
+    }
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(16, 37, 34, .86) 0%, rgba(16, 37, 34, .59) 43%, rgba(16, 37, 34, .08) 100%),
+        linear-gradient(0deg, rgba(13, 30, 27, .46), transparent 58%);
+    }
+    .hero-content {
+      width: min(var(--content), calc(100% - 44px));
+      margin: 0 auto;
+      padding: 112px 0 86px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      color: #d8e0d4;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    .hero h1 {
+      max-width: 760px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.4rem, 8vw, 7rem);
+      font-weight: 400;
+      letter-spacing: -.055em;
+      line-height: .98;
+    }
+    .hero-subtitle {
+      margin: 23px 0 0;
+      color: #e7eade;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.15rem, 2vw, 1.65rem);
+      font-style: italic;
+    }
+    .hero-description {
+      max-width: 600px;
+      margin: 20px 0 0;
+      color: rgba(255, 253, 247, .88);
+      font-size: 1rem;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 19px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: #e5d5b7;
+      color: #24392f;
+      font-size: .83rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); background: #f1e5ce; }
+    .button.secondary {
+      border-color: rgba(255,255,255,.52);
+      background: rgba(255,255,255,.08);
+      color: #fffdf7;
+    }
+    .button.secondary:hover { background: rgba(255,255,255,.17); }
 
-        .sidebar {
-            background: #738276;
-            border-left: 2px solid #282f27;
-            padding: 30px 16px;
-            color: #f8fff7;
-        }
-        .sidebar h3 {
-            margin: 0 0 12px 46px;
-            font-size: 32px;
-            font-weight: 400;
-        }
-        .sidebar p {
-            margin: 0;
-            font-size: 17px;
-            line-height: 1.4;
-        }
+    .hero-caption {
+      position: absolute;
+      right: max(22px, calc((100vw - var(--content)) / 2));
+      bottom: 18px;
+      color: rgba(255,255,255,.76);
+      font-size: .68rem;
+      text-align: right;
+    }
+    .stats-wrap {
+      width: min(var(--content), calc(100% - 44px));
+      margin: -1px auto 0;
+      position: relative;
+      z-index: 2;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-radius: 0 0 18px 18px;
+      background: var(--forest);
+      color: #fffdf7;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .stat {
+      padding: 25px clamp(17px, 3vw, 36px);
+      border-right: 1px solid rgba(255,255,255,.15);
+    }
+    .stat:last-child { border-right: 0; }
+    .stat strong {
+      display: block;
+      color: #f0dfbf;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+    }
+    .stat span {
+      display: block;
+      margin-top: 5px;
+      color: #d3ddd1;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
 
-        @media (max-width: 900px) {
-            .layout { grid-template-columns: 1fr; }
-            .image { margin-left: 0; height: 220px; font-size: 50px; }
-            .main p { margin-left: 0; }
-        }
-    </style>
+    .page-content {
+      width: min(var(--content), calc(100% - 44px));
+      margin: 0 auto;
+      padding: 35px 0 100px;
+    }
+    .section {
+      padding: 86px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 90px;
+    }
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 38px;
+    }
+    .section-index {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 13px;
+      color: #7a896f;
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .section-index::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: #a9b59e;
+    }
+    .section h2 {
+      margin: 0 0 14px;
+      color: var(--forest);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      font-weight: 400;
+      letter-spacing: -.04em;
+      line-height: 1.05;
+    }
+    .section-heading > p:last-child {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(260px, .8fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .intro-copy {
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+    .intro-copy p:last-child { margin-bottom: 0; }
+    .intro-copy .lead {
+      color: #344c40;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.42rem;
+      line-height: 1.45;
+    }
+    .fact-panel {
+      padding: 29px;
+      border-radius: var(--radius);
+      background: var(--sage);
+    }
+    .fact-panel h3 {
+      margin-bottom: 20px;
+      color: var(--forest);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.45rem;
+      font-weight: 400;
+    }
+    .fact-row {
+      padding: 13px 0;
+      border-top: 1px solid rgba(38,63,52,.15);
+    }
+    .fact-row span {
+      display: block;
+      color: #66776a;
+      font-size: .68rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .fact-row strong {
+      display: block;
+      margin-top: 3px;
+      color: #263f34;
+      font-size: .95rem;
+    }
+    .note {
+      margin-top: 20px;
+      padding: 15px 18px;
+      border-left: 3px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+      background: #eee9dc;
+      color: #58685e;
+      font-size: .86rem;
+    }
+
+    .three-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+    .info-card {
+      min-height: 205px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+    }
+    .card-symbol {
+      display: inline-grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 50%;
+      background: var(--sage);
+      color: var(--forest);
+      font-size: 1.08rem;
+    }
+    .info-card h3 {
+      margin-bottom: 8px;
+      color: var(--forest);
+      font-size: 1.05rem;
+    }
+    .info-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .feature-band {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(250px, .9fr);
+      gap: 30px;
+      align-items: center;
+      margin-top: 24px;
+      padding: 27px;
+      border-radius: var(--radius);
+      background: var(--forest);
+      color: #f8f6ed;
+    }
+    .feature-band h3 {
+      margin-bottom: 8px;
+      color: #f0dfbf;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+    }
+    .feature-band p { margin-bottom: 0; color: #d8e1d5; }
+    .feature-band .mini-stat {
+      padding-left: 25px;
+      border-left: 1px solid rgba(255,255,255,.2);
+    }
+    .mini-stat strong {
+      display: block;
+      color: #f0dfbf;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+    .mini-stat span { color: #d8e1d5; font-size: .8rem; }
+
+    .adaptation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 17px;
+    }
+    .adaptation-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+    }
+    .adaptation-card h3 {
+      margin-bottom: 9px;
+      color: var(--forest);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+    .adaptation-card p { margin-bottom: 0; color: var(--muted); font-size: .93rem; }
+    .adaptation-tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: #7a896f;
+      font-size: .67rem;
+      font-weight: 900;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 42px;
+      position: relative;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 11px;
+      left: 8%;
+      right: 8%;
+      height: 1px;
+      background: #c3cdbd;
+    }
+    .timeline-step {
+      position: relative;
+      padding: 0 18px 0 0;
+    }
+    .timeline-dot {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 23px;
+      position: relative;
+      z-index: 1;
+      border: 5px solid var(--sand);
+      border-radius: 50%;
+      background: var(--moss);
+      box-shadow: 0 0 0 1px #9eae97;
+    }
+    .timeline-step strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--forest);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.32rem;
+      font-weight: 400;
+    }
+    .timeline-step p { max-width: 230px; margin: 0; color: var(--muted); font-size: .86rem; }
+    .pup-feature {
+      display: grid;
+      grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+      gap: 26px;
+      align-items: center;
+      margin-top: 42px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+    .pup-feature img {
+      width: 100%;
+      height: 290px;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .pup-copy { padding: 18px 18px 18px 0; }
+    .pup-copy h3 {
+      margin-bottom: 9px;
+      color: var(--forest);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+    }
+    .pup-copy p { margin-bottom: 0; color: var(--muted); }
+
+    .food-web {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 14px;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .food-node {
+      padding: 22px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper);
+      text-align: center;
+    }
+    .food-node.primary {
+      border-color: #82947d;
+      background: var(--sage);
+    }
+    .food-node h3 {
+      margin: 0 0 8px;
+      color: var(--forest);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+    }
+    .food-node p { margin: 0; color: var(--muted); font-size: .84rem; }
+    .food-arrow {
+      margin-top: 8px;
+      color: #87947d;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .food-note { margin-top: 16px; color: var(--muted); font-size: .85rem; }
+
+    .threat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 17px;
+    }
+    .threat-card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+    }
+    .threat-card h3 {
+      margin-bottom: 8px;
+      color: var(--forest);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+    }
+    .threat-card p { margin: 0; color: var(--muted); font-size: .91rem; }
+    .threat-card .number {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: #8a977e;
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .15em;
+    }
+
+    .proposal {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 55px);
+      border-radius: 26px;
+      background: var(--forest);
+      color: #f8f6ed;
+    }
+    .proposal::before {
+      content: "MAUI";
+      position: absolute;
+      right: -12px;
+      top: -48px;
+      color: rgba(255,255,255,.045);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(8rem, 21vw, 18rem);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .proposal > * { position: relative; }
+    .proposal .section-index { color: #d7c29b; }
+    .proposal h2 { color: #fffdf6; }
+    .proposal-intro { max-width: 730px; color: #dbe3d8; }
+    .proposal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+      margin-top: 30px;
+    }
+    .proposal-item {
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 15px;
+      background: rgba(255,255,255,.055);
+    }
+    .proposal-item h3 {
+      margin-bottom: 6px;
+      color: #ead9b8;
+      font-size: 1rem;
+    }
+    .proposal-item p { margin: 0; color: #d6dfd3; font-size: .87rem; }
+    .proposal-caveat {
+      margin-top: 23px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.18);
+      color: #cbd6ca;
+      font-size: .82rem;
+    }
+
+    .sources {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .source-link {
+      display: block;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper);
+      text-decoration: none;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .source-link:hover {
+      transform: translateY(-2px);
+      border-color: #9bab91;
+    }
+    .source-link strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--forest);
+      font-size: .95rem;
+    }
+    .source-link span { color: var(--muted); font-size: .8rem; }
+    .source-note { margin-top: 18px; color: var(--muted); font-size: .78rem; }
+
+    .site-footer {
+      padding: 27px 22px;
+      background: var(--forest-deep);
+      color: #d5ded2;
+      text-align: center;
+      font-size: .78rem;
+    }
+    .site-footer strong { color: #f0dfbf; }
+
+    @media (max-width: 820px) {
+      .primary-nav { gap: 12px; }
+      .primary-nav a { font-size: .72rem; }
+      .overview-grid, .feature-band, .pup-feature { grid-template-columns: 1fr; }
+      .mini-stat { padding: 0 !important; border-left: 0 !important; }
+      .three-grid { grid-template-columns: repeat(2, 1fr); }
+      .pup-copy { padding: 6px 8px 12px; }
+      .pup-feature img { height: 260px; }
+    }
+    @media (max-width: 620px) {
+      .header-inner {
+        width: min(100% - 28px, var(--content));
+        min-height: 64px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 0 9px;
+      }
+      .brand { margin-right: auto; font-size: .7rem; }
+      .primary-nav {
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+      .primary-nav a { white-space: nowrap; font-size: .68rem; }
+      .nav-cta { padding: 6px 10px; }
+      .hero { min-height: 630px; }
+      .hero-image { object-position: 57% center; }
+      .hero::after {
+        background:
+          linear-gradient(0deg, rgba(13, 30, 27, .9) 0%, rgba(13, 30, 27, .53) 56%, rgba(13, 30, 27, .18) 100%);
+      }
+      .hero-content, .page-content, .stats-wrap { width: calc(100% - 28px); }
+      .hero-content { padding: 90px 0 72px; }
+      .hero h1 { font-size: clamp(3.3rem, 17vw, 5rem); }
+      .hero-caption { right: 14px; bottom: 10px; max-width: 240px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 15px 19px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255,255,255,.15);
+      }
+      .stat:last-child { border-bottom: 0; }
+      .stat strong { font-size: 1.8rem; }
+      .stat span { max-width: 150px; margin: 0; text-align: right; }
+      .page-content { padding-top: 18px; }
+      .section { padding: 65px 0; }
+      .section-heading { margin-bottom: 28px; }
+      .intro-copy, .fact-panel { padding: 23px; }
+      .three-grid, .adaptation-grid, .threat-grid, .proposal-grid, .sources {
+        grid-template-columns: 1fr;
+      }
+      .info-card { min-height: auto; }
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        margin-left: 4px;
+      }
+      .timeline::before {
+        top: 9px;
+        bottom: 12px;
+        left: 10px;
+        right: auto;
+        width: 1px;
+        height: auto;
+      }
+      .timeline-step {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        column-gap: 13px;
+        padding: 0;
+      }
+      .timeline-dot { grid-row: span 2; margin: 3px 0 0; }
+      .timeline-step strong { margin-bottom: 3px; }
+      .timeline-step p { max-width: none; }
+      .food-web { grid-template-columns: 1fr; }
+      .food-arrow { transform: rotate(90deg); margin: 0; }
+      .feature-band { padding: 24px; }
+      .proposal { border-radius: 19px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
 </head>
 <body>
-    <div class="topbar">
-        <h1>The Hawaiian Monk Seal</h1>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Field Notes, back to top">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>FIELD NOTES / HAWAIʻI</span>
+      </a>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <a href="#overview">Overview</a>
+        <a href="#habitat">Habitat</a>
+        <a href="#adaptations">Adaptations</a>
+        <a href="#life-cycle">Life cycle</a>
+        <a href="#food-web">Food web</a>
+        <a href="#threats">Threats</a>
+        <a class="nav-cta" href="#seals-paradise">Seals Paradise</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="top" aria-labelledby="page-title">
+      <img
+        class="hero-image"
+        src="https://www.fisheries.noaa.gov/s3/styles/full_width/s3/dam-migration/hawaiian_monk_seal.jpg?itok=Mw5oylQQ"
+        alt="A Hawaiian monk seal swimming underwater toward the camera"
+        fetchpriority="high">
+      <div class="hero-content">
+        <p class="eyebrow">Pacific Islands · Species field guide</p>
+        <h1 id="page-title">The Hawaiian<br>Monk Seal</h1>
+        <p class="hero-subtitle">ʻĪlio-holo-i-ka-uaua</p>
+        <p class="hero-description">
+          A rare marine mammal found only in the Hawaiian region. Explore the seal’s biology,
+          its place in the reef ecosystem, the pressures it faces, and one proposal for helping it recover.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#overview">Explore the species <span aria-hidden="true">&nbsp;↘</span></a>
+          <a class="button secondary" href="#seals-paradise">View conservation proposal</a>
+        </div>
+      </div>
+      <p class="hero-caption">Underwater photograph: NOAA Fisheries / Hawaiian Monk Seal Research Program</p>
+    </section>
+
+    <div class="stats-wrap" aria-label="Hawaiian monk seal at a glance">
+      <div class="stats">
+        <div class="stat">
+          <strong>~1,600</strong>
+          <span>Estimated seals worldwide</span>
+        </div>
+        <div class="stat">
+          <strong>Endangered</strong>
+          <span>U.S. Endangered Species Act status</span>
+        </div>
+        <div class="stat">
+          <strong>1,500 mi</strong>
+          <span>Hawaiian archipelago range</span>
+        </div>
+      </div>
     </div>
 
-    <div class="layout">
-        <div></div>
+    <div class="page-content">
+      <section class="section" id="overview" aria-labelledby="overview-title">
+        <div class="section-heading">
+          <p class="section-index">01 / Species overview</p>
+          <h2 id="overview-title">A seal found nowhere else.</h2>
+          <p>
+            The Hawaiian monk seal is one of the world’s most endangered seal species.
+            It is endemic to the Hawaiian archipelago, meaning its natural range is centered
+            here and it does not occur naturally anywhere else in the world.
+          </p>
+        </div>
+        <div class="overview-grid">
+          <div class="intro-copy">
+            <p class="lead">
+              Hawaiian monk seals are mostly solitary animals. They do not form large colonies,
+              although several seals may rest near one another in loose groups on beaches.
+            </p>
+            <p>
+              Their range stretches from the main Hawaiian Islands northwest through
+              Papahānaumokuākea Marine National Monument. Rare sightings have also been
+              recorded at Johnston Atoll. NOAA estimates about 1,600 seals remain:
+              approximately 1,200 in Papahānaumokuākea and 400 in the main Hawaiian Islands.
+            </p>
+            <p>
+              The population has been increasing gradually since 2013, but it remains small
+              and conservation work is still important.
+            </p>
+            <div class="note">
+              <strong>Population note:</strong> The figure is an estimate, not an exact count.
+              NOAA’s species profile reports approximately 1,600 individuals.
+            </div>
+          </div>
+          <aside class="fact-panel" aria-label="Species facts">
+            <h3>Species profile</h3>
+            <div class="fact-row">
+              <span>Common name</span>
+              <strong>Hawaiian monk seal</strong>
+            </div>
+            <div class="fact-row">
+              <span>Scientific name</span>
+              <strong><i>Neomonachus schauinslandi</i></strong>
+            </div>
+            <div class="fact-row">
+              <span>Hawaiian name</span>
+              <strong>ʻĪlio-holo-i-ka-uaua</strong>
+            </div>
+            <div class="fact-row">
+              <span>Family</span>
+              <strong>Phocidae · earless seals</strong>
+            </div>
+            <div class="fact-row">
+              <span>Adult length</span>
+              <strong>About 6–7 feet</strong>
+            </div>
+            <div class="fact-row">
+              <span>Protection</span>
+              <strong>U.S. Endangered Species Act</strong>
+            </div>
+          </aside>
+        </div>
+      </section>
 
-        <main class="main">
-            <h2>About the Hawaiian Monk Seal:</h2>
-            <p>The Hawaiian Monk Seal/known to locals as "Īlio-holo-i-ka-uaua" is...</p>
-        </main>
+      <section class="section" id="habitat" aria-labelledby="habitat-title">
+        <div class="section-heading">
+          <p class="section-index">02 / Habitat & environment</p>
+          <h2 id="habitat-title">Life between reef and shore.</h2>
+          <p>
+            Monk seals use both marine and terrestrial habitats. They forage offshore and
+            around reefs, then return to land to rest, molt, give birth, and nurse their pups.
+          </p>
+        </div>
+        <div class="three-grid">
+          <article class="info-card">
+            <span class="card-symbol" aria-hidden="true">⌁</span>
+            <h3>Abiotic factors</h3>
+            <p>
+              Warm subtropical ocean conditions, sunlight, tides, waves, water depth, and
+              beach shape all influence where seals can feed and safely haul out.
+              Protected, shallow-water beaches are especially useful for pupping.
+            </p>
+          </article>
+          <article class="info-card">
+            <span class="card-symbol" aria-hidden="true">✿</span>
+            <h3>Biotic factors</h3>
+            <p>
+              Coral-reef and seafloor communities provide fish, eels, octopuses, and
+              crustaceans. Seals are part of this food web as predators, while also sharing
+              the ecosystem with sharks and other large predatory fish.
+            </p>
+          </article>
+          <article class="info-card">
+            <span class="card-symbol" aria-hidden="true">⌂</span>
+            <h3>Resting & pupping sites</h3>
+            <p>
+              Seals haul out on sandy beaches, coral rubble, tidepools, and volcanic-rock
+              shorelines. They often choose quieter areas away from heavy surf and disturbance.
+            </p>
+          </article>
+        </div>
+        <div class="feature-band">
+          <div>
+            <h3>Two-thirds of their time is spent at sea.</h3>
+            <p>
+              Although beaches are essential resting and nursing places, Hawaiian monk seals
+              spend much of their lives swimming and searching for prey in shallow and deep
+              marine habitats.
+            </p>
+          </div>
+          <div class="mini-stat">
+            <strong>⅔</strong>
+            <span>Approximate share of time spent at sea, according to NOAA Fisheries</span>
+          </div>
+        </div>
+      </section>
 
-        <aside class="sidebar">
-            <h3>The Hawaiian Monk Seal Info</h3>
-            <h4>Threats:</h4>
-            <h5>⭗ Toxoplasma gondii (parasites from cat feces.)<br><br>⭗ Intentional Human Harm(eg. Crazy entitled rich people with rocks, Shooters, Evil tourists, etc...)<br>⭗ unnamed<br><br>⭗ unnamed<br><br>⭗ unnamed<br><br>⭗ unnamed<br></h5>
-            <h4>Population Details:</h4>
-            <h5>⭗ Population: details<br><br>⭗ Deaths a Year: details<br><br>⭗ Endangerment: details<br><br>⭗ unnamed: details<br><br>⭗ unnamed: details<br><br>⭗ unnamed: details</h5>
-        </aside>
+      <section class="section" id="adaptations" aria-labelledby="adaptations-title">
+        <div class="section-heading">
+          <p class="section-index">03 / Anatomy & adaptations</p>
+          <h2 id="adaptations-title">Built for an underwater life.</h2>
+          <p>
+            A streamlined body, sensitive senses, and specialized diving responses help
+            monk seals find food and move through the ocean.
+          </p>
+        </div>
+        <div class="adaptation-grid">
+          <article class="adaptation-card">
+            <span class="adaptation-tag">Structural adaptation</span>
+            <h3>Streamlined body & flippers</h3>
+            <p>
+              A smooth, tapered body reduces drag in the water. The hind flippers provide
+              much of the propulsion while swimming, and the foreflippers help with steering
+              and maneuvering.
+            </p>
+          </article>
+          <article class="adaptation-card">
+            <span class="adaptation-tag">Sensory adaptation</span>
+            <h3>Eyes, whiskers & closed nostrils</h3>
+            <p>
+              Seal eyes are adapted for underwater vision and low-light conditions.
+              Sensitive whiskers, called vibrissae, can detect small water movements that
+              help seals track nearby prey. Their nostrils close while submerged.
+            </p>
+          </article>
+          <article class="adaptation-card">
+            <span class="adaptation-tag">Physiological adaptation</span>
+            <h3>The diving response</h3>
+            <p>
+              Hawaiian monk seals can hold their breath for up to about 20 minutes and dive
+              deeper than 1,800 feet. Like other diving mammals, seals can slow their heart
+              rate during dives (bradycardia), helping conserve stored oxygen.
+            </p>
+          </article>
+          <article class="adaptation-card">
+            <span class="adaptation-tag">Foraging behavior</span>
+            <h3>Searching beneath the surface</h3>
+            <p>
+              Monk seals search near the seafloor and often prefer prey hidden in sand or
+              beneath rocks. They have been observed flipping rocks with their noses to
+              uncover concealed animals.
+            </p>
+          </article>
+        </div>
+        <div class="note">
+          <strong>Scientific detail:</strong> The dive-response explanation describes a
+          well-documented adaptation in diving mammals. NOAA documents Hawaiian monk seal
+          dives exceeding 1,800 feet; the exact heart-rate response can vary with activity
+          and dive conditions.
+        </div>
+      </section>
+
+      <section class="section" id="life-cycle" aria-labelledby="life-cycle-title">
+        <div class="section-heading">
+          <p class="section-index">04 / Life cycle & reproduction</p>
+          <h2 id="life-cycle-title">A long start for a young seal.</h2>
+          <p>
+            A mother invests several weeks caring for a single pup. After weaning, the young
+            seal must learn to find food and survive independently.
+          </p>
+        </div>
+        <div class="timeline" aria-label="Hawaiian monk seal reproduction timeline">
+          <div class="timeline-step">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <strong>~11 months</strong>
+            <p>Gestation lasts about eleven months. Females generally give birth on land to one pup.</p>
+          </div>
+          <div class="timeline-step">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <strong>5–7 weeks</strong>
+            <p>The pup nurses while the mother stays nearby and fasts rather than leaving to forage.</p>
+          </div>
+          <div class="timeline-step">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <strong>Independent</strong>
+            <p>After weaning, the pup begins learning to forage. Juveniles face a challenging early period.</p>
+          </div>
+          <div class="timeline-step">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <strong>Adulthood</strong>
+            <p>Females commonly begin reproducing at 5–6 years in the main islands and 7–10 in the Northwest.</p>
+          </div>
+        </div>
+        <div class="pup-feature">
+          <img
+            src="https://www.fisheries.noaa.gov/s3/2024-03/750x500-Hawaiian-monk-seal-and-pup-napping-HMAR.png"
+            alt="A Hawaiian monk seal mother and her dark-coated pup resting together on a sandy beach"
+            loading="lazy">
+          <div class="pup-copy">
+            <h3>The nursing period is a major commitment.</h3>
+            <p>
+              Mothers typically remain with their pups for 5–7 weeks and do not leave to feed
+              during this period. They use stored energy to produce rich milk. Hawaiian monk
+              seals can live for more than 30 years, although few individuals reach that age.
+            </p>
+            <p class="source-note">Photograph: NOAA Fisheries / Hawaiʻi Marine Animal Response (HMAR)</p>
+          </div>
+        </div>
+        <div class="note">
+          <strong>Survival note:</strong> Young seals face natural challenges after weaning,
+          including learning to forage and, in some locations, shark predation. A single
+          survival percentage is not included because outcomes vary among years and locations.
+        </div>
+      </section>
+
+      <section class="section" id="food-web" aria-labelledby="food-web-title">
+        <div class="section-heading">
+          <p class="section-index">05 / Ecosystem & food web</p>
+          <h2 id="food-web-title">A hunter of the seafloor.</h2>
+          <p>
+            Hawaiian monk seals are generalist, benthic predators. “Benthic” means that
+            much of their foraging happens at or near the bottom of the ocean.
+          </p>
+        </div>
+        <div class="food-web" role="group" aria-label="Simplified Hawaiian monk seal food web">
+          <div class="food-node">
+            <h3>Reef & seafloor prey</h3>
+            <p>Reef fish · eels · octopuses · squid · crabs · shrimp · lobsters · sea cucumbers</p>
+          </div>
+          <div class="food-arrow" aria-hidden="true">→</div>
+          <div class="food-node primary">
+            <h3>Hawaiian monk seal</h3>
+            <p>A flexible predator that searches for prey in sand, under rocks, and around reefs.</p>
+          </div>
+        </div>
+        <div class="three-grid" style="margin-top:17px">
+          <article class="info-card">
+            <span class="card-symbol" aria-hidden="true">◉</span>
+            <h3>Natural predators</h3>
+            <p>
+              Sharks can prey on pups. NOAA has documented Galápagos shark predation on
+              pre-weaned and recently weaned pups at Lalo (French Frigate Shoals), a
+              geographically specific threat.
+            </p>
+          </article>
+          <article class="info-card">
+            <span class="card-symbol" aria-hidden="true">⇄</span>
+            <h3>Competition</h3>
+            <p>
+              In parts of Papahānaumokuākea, seals share limited prey with other large
+              predators, including sharks and large jacks such as ulua.
+            </p>
+          </article>
+          <article class="info-card">
+            <span class="card-symbol" aria-hidden="true">⌖</span>
+            <h3>Ecological role</h3>
+            <p>
+              By feeding on a wide range of bottom-dwelling animals, monk seals are one
+              part of the reef food web and reflect the health of the marine ecosystem.
+            </p>
+          </article>
+        </div>
+        <p class="food-note">
+          The food-web diagram is simplified for learning; actual feeding relationships are
+          more complex and change with prey availability and location.
+        </p>
+      </section>
+
+      <section class="section" id="threats" aria-labelledby="threats-title">
+        <div class="section-heading">
+          <p class="section-index">06 / Threats to survival</p>
+          <h2 id="threats-title">Small population. Many pressures.</h2>
+          <p>
+            Threats differ across the species’ range. Some are especially important in the
+            main Hawaiian Islands, while others have had major effects on pups and juveniles
+            in the Northwestern Hawaiian Islands.
+          </p>
+        </div>
+        <div class="threat-grid">
+          <article class="threat-card">
+            <span class="number">THREAT 01</span>
+            <h3>Toxoplasmosis</h3>
+            <p>
+              The parasite <i>Toxoplasma gondii</i> reproduces in cats. Its eggs can leave
+              through cat feces, enter streams and watersheds, and eventually reach coastal
+              waters where monk seals may be exposed. Feral and free-roaming cats contribute
+              to this pathway.
+            </p>
+          </article>
+          <article class="threat-card">
+            <span class="number">THREAT 02</span>
+            <h3>Fishing gear & marine debris</h3>
+            <p>
+              Lost or discarded nets, lines, hooks, and other debris can entangle seals or
+              cause injuries. Interactions with active fishing gear also occur. Removing
+              abandoned gear reduces this risk, but debris can arrive from outside a local area.
+            </p>
+          </article>
+          <article class="threat-card">
+            <span class="number">THREAT 03</span>
+            <h3>Human disturbance</h3>
+            <p>
+              Harassment, crowding, feeding, intentional harm, and other disturbances can
+              affect seals, especially mothers and pups. Giving hauled-out seals plenty of
+              space helps protect both wildlife and people.
+            </p>
+          </article>
+          <article class="threat-card">
+            <span class="number">THREAT 04</span>
+            <h3>Food limitation & predation</h3>
+            <p>
+              Juveniles can struggle when prey is limited. In certain Northwestern Hawaiian
+              Islands locations, sharks have been a significant source of pup injury and
+              mortality. These pressures are not identical at every island.
+            </p>
+          </article>
+          <article class="threat-card">
+            <span class="number">THREAT 05</span>
+            <h3>Habitat loss</h3>
+            <p>
+              Low-lying atolls are vulnerable to beach erosion and sea-level rise. Losing
+              resting and pupping beaches can reduce the safe places seals need on land.
+            </p>
+          </article>
+          <article class="threat-card">
+            <span class="number">THREAT 06</span>
+            <h3>Other health & natural risks</h3>
+            <p>
+              Other diseases, injuries, aggressive interactions between seals, and difficult
+              conditions during early life can affect survival. Conservation teams monitor
+              and respond to injured, sick, and entangled animals.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="seals-paradise" aria-labelledby="paradise-title">
+        <div class="proposal">
+          <p class="section-index">07 / Conservation proposal</p>
+          <h2 id="paradise-title">Seals Paradise</h2>
+          <p class="proposal-intro">
+            A proposed coastal refuge along the southern shores of Maui. The concept is to
+            protect quiet sandy beaches and nearby feeding habitat, while reducing the
+            chance that fishing equipment and human activity harm Hawaiian monk seals.
+          </p>
+          <div class="proposal-grid">
+            <article class="proposal-item">
+              <h3>01 · Protected beach areas</h3>
+              <p>
+                Designate suitable sandy shoreline for undisturbed resting and pupping,
+                with clear viewing boundaries and seasonal protections when needed.
+              </p>
+            </article>
+            <article class="proposal-item">
+              <h3>02 · Marine protection zone</h3>
+              <p>
+                Evaluate a nearby zone restricting commercial fishing and net use, designed
+                around seal movement, reef habitat, and local community needs.
+              </p>
+            </article>
+            <article class="proposal-item">
+              <h3>03 · Ghost-gear prevention</h3>
+              <p>
+                Pair gear restrictions with regular debris surveys, removal of abandoned
+                nets, and reporting systems. A local closure alone cannot stop debris
+                that drifts in from elsewhere.
+              </p>
+            </article>
+            <article class="proposal-item">
+              <h3>04 · Healthy prey habitat</h3>
+              <p>
+                Protect reef and seafloor communities, monitor prey availability, and track
+                whether conservation measures are improving habitat conditions.
+              </p>
+            </article>
+            <article class="proposal-item">
+              <h3>05 · Monitoring & research</h3>
+              <p>
+                Work with wildlife scientists and response groups to record seal sightings,
+                pupping activity, entanglements, and habitat changes over time.
+              </p>
+            </article>
+            <article class="proposal-item">
+              <h3>06 · Community partnership</h3>
+              <p>
+                Involve Native Hawaiian communities, local fishers, residents, scientists,
+                and resource managers in planning, decision-making, and ongoing evaluation.
+              </p>
+            </article>
+          </div>
+          <p class="proposal-caveat">
+            <strong>Project concept, not an existing reserve:</strong> “Seals Paradise” is a
+            student conservation proposal. A real sanctuary or fishing closure would require
+            ecological assessment, consultation with Native Hawaiian communities and local
+            fishers, and approval from the relevant state and federal authorities.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="sources" aria-labelledby="sources-title">
+        <div class="section-heading">
+          <p class="section-index">Research / References</p>
+          <h2 id="sources-title">Follow the evidence.</h2>
+          <p>
+            The facts on this page are based primarily on NOAA Fisheries and Hawaiʻi
+            Department of Land and Natural Resources resources. Population estimates and
+            conservation information can change as new surveys are completed.
+          </p>
+        </div>
+        <div class="sources">
+          <a class="source-link" href="https://www.fisheries.noaa.gov/species/hawaiian-monk-seal" target="_blank" rel="noopener noreferrer">
+            <strong>NOAA Fisheries · Hawaiian Monk Seal</strong>
+            <span>Population estimate, distribution, behavior, diving, habitat, reproduction, and threats ↗</span>
+          </a>
+          <a class="source-link" href="https://dar.hawaii.gov/learn-explore/species/marine-mammals/hawaiian-monk-seal/" target="_blank" rel="noopener noreferrer">
+            <strong>Hawaiʻi DLNR · Division of Aquatic Resources</strong>
+            <span>Species facts, diet, reproduction, toxoplasmosis, and fishing-gear entanglement ↗</span>
+          </a>
+          <a class="source-link" href="https://www.fisheries.noaa.gov/pacific-islands/endangered-species-conservation/frequent-questions-hawaiian-monk-seal-mothers-and" target="_blank" rel="noopener noreferrer">
+            <strong>NOAA Fisheries · Mothers and Pups FAQ</strong>
+            <span>Gestation, nursing period, maternal fasting, and pup protection ↗</span>
+          </a>
+          <a class="source-link" href="https://oceantoday.noaa.gov/sealanatomy/welcome.html" target="_blank" rel="noopener noreferrer">
+            <strong>NOAA Ocean Today · Seal Anatomy</strong>
+            <span>General seal anatomy, whiskers, nostrils, and underwater senses ↗</span>
+          </a>
+          <a class="source-link" href="https://pubmed.ncbi.nlm.nih.gov/22585422/" target="_blank" rel="noopener noreferrer">
+            <strong>Davis & Williams · Marine mammal dive response</strong>
+            <span>Peer-reviewed explanation of diving bradycardia and oxygen conservation ↗</span>
+          </a>
+          <a class="source-link" href="https://www.fisheries.noaa.gov/resource/peer-reviewed-research/integrating-multiple-technologies-understand-foraging-behaviour" target="_blank" rel="noopener noreferrer">
+            <strong>NOAA Fisheries · Foraging behavior research</strong>
+            <span>Peer-reviewed study of Hawaiian monk seal foraging behavior ↗</span>
+          </a>
+        </div>
+        <p class="source-note">
+          Photo credits: NOAA Fisheries / Hawaiian Monk Seal Research Program; NOAA Fisheries /
+          Hawaiʻi Marine Animal Response. Images are displayed from their source hosts.
+        </p>
+      </section>
     </div>
-</div>
+  </main>
+
+  <footer class="site-footer">
+    <strong>FIELD NOTES / HAWAIʻI</strong> · An educational species profile focused on the Hawaiian monk seal.
+  </footer>
 </body>
 </html>
